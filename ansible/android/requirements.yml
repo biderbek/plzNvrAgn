@@ -1,0 +1,4 @@
+---
+- src: https://github.com/nickpack/ansible-role-android-sdk
+  version: master
+  name: ansible-role-android-sdk
