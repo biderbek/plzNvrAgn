@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -ex
+#!/usr/bin/env bash
 sudo apt -y install python-pip
 sudo pip install ansible 
 ansible-galaxy install -r requirements.yml
