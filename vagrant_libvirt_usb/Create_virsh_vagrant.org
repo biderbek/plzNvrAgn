@@ -1,0 +1,46 @@
+* Make virsh ubuntu
+** Host prep
+*** Docs
+**** Vagrant libvirt provider
+**** virsh [[ftp://libvirt.org/libvirt/virshcmdref/html/sect-net-define.html][network setup
+]]
+*** Install
+    #+begin_src sh
+       56  aptitude install build-essential
+   57  apt-get install vagrant ruby-libvirt
+   58  apt-get install qemu libvirt-bin ebtables dnsmasq-base
+   59  apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev
+   61  apt install vagrant
+   62  apt-get --fix-missing
+   63  apt install vagrant
+   64  aptitude update
+   65  aptitude install vagrant
+   66  apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev
+   69  apt install libvirt-clients
+   74  sudo apt-get install libvirt-daemon-system
+
+    #+end_src
+** Used [[%09https://github.com/ruzickap/packer-templates][packer setup]]
+*** Install packer ~/bin
+*** Build for virsh
+    #+begin_src sh
+      sudo PACKER_BINARY=~/bin/packer ./build.sh ubuntu-18.04-server-amd64-libvirt
+    #+end_src
+
+** Import box
+   #+begin_src sh
+     vagrant box add /var/tmp/packer-templates-images/ubuntu-18.04-server-amd64-libvirt.box --name ubuntu-1
+     vagrant box list
+     ubuntu-1 (libvirt, 0)
+   #+end_src
+
+** Vagrant file
+
+** Test startup
+   #+begin_src sh
+   sudo vagrant up --provider=libvirt
+   #+end_src
+
+** Setup Bridge network
+*** https://jamielinux.com/docs/libvirt-networking-handbook/bridged-network.html
+
