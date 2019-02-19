@@ -6,12 +6,14 @@
   - name: update apt
     become: true
     apt: update_cache=yes name=git
+    when: ansible_facts['os_family'] == 'Debian'
 
   - name: Install UDEV rules
     become: true
     git:
       repo: https://github.com/M0Rf30/android-udev-rules.git
       dest: /usr/local/src/android-udev-rules
+    when: ansible_facts['os_family'] == 'Debian'
 
   - name: cp UDEV rules
     become: true
@@ -20,6 +22,14 @@
       dest: /etc/udev/rules.d/51-android.rules
       mode: "a+r"
       state: link
+    when: ansible_facts['os_family'] == 'Debian'
+
+  - name: Install expect
+    homebrew:
+      name: expect
+    when: ansible_facts['os_family'] == 'Darwin'
 
   roles:
-    - { role: ansible-role-android-sdk, become: true }
+    - role: ansible-role-android-sdk
+      become: true
+
